@@ -4,8 +4,6 @@
 #include "dll/dll.h"
 #include <stdint.h>
 
-typedef struct Type Type;
-
 typedef enum {
     _int,
     _float,
@@ -25,7 +23,7 @@ typedef union {
     string_t *_string;
 } Type_data;
 
-typedef {
+typedef struct {
     Types type;
     Type_data data;
 } Type;

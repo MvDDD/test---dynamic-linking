@@ -7,7 +7,6 @@ LIBVER_C(ERROR_MAIN_C, "1.6.4")
 static void **hashtable = NULL;
 static size_t hashtable_length = 0;
 static size_t hashtable_usage = 0;
-typedef void(*voidfunc)(void);
 voidfunc cleanupfuncs[100];
 static size_t cleanupLength = 0;
 

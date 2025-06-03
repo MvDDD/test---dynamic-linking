@@ -237,8 +237,8 @@ if builds[0] == "clean":
     builds = builds[1:]
 
 # Dry run
-#for b in builds:
-#    build(b, dry=True)
+for b in builds:
+    build(b, dry=True)
 
 print("\n\nstarting:\n")
 # Actual run

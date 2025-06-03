@@ -1,5 +1,5 @@
 #include "error.h"
-#include <stdlib.h> // for malloc
+#include <stdlib.h>
 #include "libver.h"
 
 LIBVER_C(ERROR_MAIN_C, "1.6.4")
@@ -7,7 +7,8 @@ LIBVER_C(ERROR_MAIN_C, "1.6.4")
 static void **hashtable = NULL;
 static size_t hashtable_length = 0;
 static size_t hashtable_usage = 0;
-static void(*)() cleanupfuncs[100];
+typedef void(*voidfunc)(void);
+voidfunc cleanupfuncs[100];
 static size_t cleanupLength = 0;
 
 #define ONE ((void *)1)
@@ -18,7 +19,7 @@ void einit() {
 	hashtable_usage = 0;
 }
 
-void eregistercleanup(void(*func)()){
+void eregistercleanup(voidfunc func){
 	if (cleanupLength > 100-2){
 		error(ERR_OOM, "too many cleanups", __POSITION__);
 	}
@@ -111,17 +112,11 @@ static void ERROR_FREE_ALL(){
 }
 
 
-void ebind(bindCallBack_t bindCallBack, isBound_t isbound) {
+void ebind(bindCallBack_t bindCallBack) {
 	if (bindCallBack == NULL){
 		error(ERR_DLL_LOAD, "bindCallBack is NULL", __POSITION__);
 	}
-	if (isbound == NULL){
-		error(ERR_DLL_LOAD, "isBound is NULL", __POSITION__);
-	}
 	bindCallBack(emalloc, ecalloc, erealloc, efree, error, eexit, eregistercleanup);
-	if (!isbound()){
-		error(ERR_DLL_LOAD, "binding failed", __POSITION__);
-	}
 }
 void exposedType error(errorType type, const char *msg, const char *position) {
 	printf("\x1b[31mERROR: %s :%s\n\t%s\n\x1b[0m", getErrString(type), position, msg);
@@ -165,10 +160,9 @@ void *exposedType erealloc(void *pointer, size_t size) {
 	}
 }
 
-extern void ERROR_cleanup(void);
 void exposedType eexit(int status) {
 	for (size_t i = 0; i < cleanupLength; i++){
-		cleanupfuncs[i]()
+		cleanupfuncs[i]();
 	}
 	ERROR_FREE_ALL();
 	exit(status);

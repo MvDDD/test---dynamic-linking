@@ -14,6 +14,8 @@ LIBVER_H(ERROR_H, ERROR_DLL_C, "1.6.3")
 #define TOSTRING(x) STRINGIFY(x)
 #define __POSITION__ (__FILE__ ":" TOSTRING(__LINE__))
 
+typedef void(*voidfunc)(void);
+
 typedef enum {
     ERR_ALLOC_ERROR = 0,
     ERR_CALLOC_ERROR,
@@ -38,7 +40,7 @@ typedef void  (exposedType *eregistercleanup_t)();
 typedef void  (exposedType *bindCallBack_t)(emalloc_t, ecalloc_t, erealloc_t, efree_t, error_t, eexit_t, eregistercleanup_t);
 typedef int   (exposedType *isBound_t)();
 
-void ebind(bindCallBack_t bindCallBack, isBound_t isbound); //handled in dll logic
+void ebind(bindCallBack_t bindCallBack);
 void einit();
 
 void *exposedType emalloc(size_t size);
@@ -47,7 +49,7 @@ void *exposedType erealloc(void *pointer, size_t size); // fixed from realloc
 void  exposedType efree(void *pointer);
 void  exposedType error(errorType, const char *msg, const char *position);
 void  exposedType eexit(int status);
-void  exposedType eregistercleanup(void (*func)())
+void  exposedType eregistercleanup(voidfunc func);
 /*
 #define malloc emalloc
 #define calloc ecalloc

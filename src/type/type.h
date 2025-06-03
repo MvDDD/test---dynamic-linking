@@ -1,7 +1,7 @@
 #ifndef TYPE_H
 #define TYPE_H
 
-#include "dll/dll.h"  // or dll.h
+#include "dll/dll.h"
 #include <stdint.h>
 
 typedef struct Type Type;
@@ -85,7 +85,7 @@ exposed Type *name(Type *argv, uint32_t argc) { \
 		} \
 	}
 
-#define endfunction return NULL;}
+#define endfunction {return NULL;}}
 
 #define createDoc(function, footprint)\
 	exposed char *__doc##function (){\

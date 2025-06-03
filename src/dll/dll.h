@@ -1,5 +1,5 @@
-#ifndef DLL_TYPES_H
-#define DLL_TYPES_H
+#ifndef DLL_H
+#define DLL_H
 
 #ifdef _WIN32
     #include <windows.h>
@@ -37,4 +37,4 @@
     #error unsupported os
 #endif
 
-#endif // DLL_TYPES_H
+#endif // DLL_H

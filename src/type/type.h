@@ -2,6 +2,7 @@
 #define TYPE_H
 
 #include "dll/dll.h"
+#include "error/error.h"
 #include <stdint.h>
 
 typedef enum {

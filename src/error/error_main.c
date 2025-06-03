@@ -18,7 +18,7 @@ void einit() {
 	hashtable_usage = 0;
 }
 
-void eregistercleanup(voidfunc func){
+void exposedType eregistercleanup(voidfunc func){
 	if (cleanupLength > 100-2){
 		error(ERR_OOM, "too many cleanups", __POSITION__);
 	}

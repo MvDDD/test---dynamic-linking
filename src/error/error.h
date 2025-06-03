@@ -27,6 +27,7 @@ typedef enum {
     ERR_DLL_LOAD,
     ERR_TYPEERROR,
     ERR_MEMORY_LEAK,
+    ERR_OOM,
 } errorType;
 
 
@@ -36,7 +37,7 @@ typedef void *(exposedType *erealloc_t)(void *, size_t);
 typedef void  (exposedType *efree_t)(void *);
 typedef void  (exposedType *error_t)(errorType, const char *msg, const char *position);
 typedef void  (exposedType *eexit_t)(int);
-typedef void  (exposedType *eregistercleanup_t)();
+typedef void  (exposedType *eregistercleanup_t)(voidfunc);
 typedef void  (exposedType *bindCallBack_t)(emalloc_t, ecalloc_t, erealloc_t, efree_t, error_t, eexit_t, eregistercleanup_t);
 typedef int   (exposedType *isBound_t)();
 

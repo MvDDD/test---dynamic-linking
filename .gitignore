@@ -1,2 +1,5 @@
-build/*
-.build_hashes.json
+/build/*
+/.build_hashes.json
+/.build_hashes.json
+/__pycache__/*
+/__pycache__

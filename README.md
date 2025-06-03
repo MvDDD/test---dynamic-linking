@@ -1,3 +1,4 @@
+```
 PS C:/.../test - dynamic linking> py make.py
 
 main:
@@ -113,3 +114,4 @@ src/main/main.c:81: error: expected '{' at end of input
 
 
 done with errors
+```

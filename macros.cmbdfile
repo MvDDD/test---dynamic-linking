@@ -1,0 +1,15 @@
+dbg:
+    dbg.libver
+, cmd;
+
+lib:
+    lib.lib
+    lib.main
+, cmd;
+
+all:
+    main
+    lib
+    dbg
+, cmd;
+

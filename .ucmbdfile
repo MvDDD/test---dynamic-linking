@@ -1,0 +1,74 @@
+import:
+    macros.cmbdfile
+, import;
+
+gcc:
+    -m32
+    -std=c99
+    -O0
+    -Isrc
+    -fPIC
+    -DNDEBUG
+,CC;
+
+build/src/error.o:
+    src/error/error_dll.c
+,obj;
+
+build/src/type.o:
+    src/type/type.c
+,obj;
+
+build/src/include/lib/lib.o:
+    src/include/lib/lib.c
+,obj;
+
+build/src/include/main/main.o:
+    src/include/main/main.c
+,obj;
+
+build/src/main/main.o:
+    src/main/main.c
+,obj;
+
+build/src/error_main.o:
+    src/error/error_main.c
+,obj;
+
+build/build/include/lib/lib.so:
+    build/src/type.o 
+    build/src/error.o 
+    build/src/include/lib/lib.o
+, lib, lib.lib;
+
+build/build/include/main/main.so:
+    build/src/type.o
+    build/src/error.o
+    build/src/include/main/main.o
+, lib, lib.main;
+
+build/build/main:
+    build/src/main/main.o
+    build/src/type.o
+    build/src/error_main.o
+, exec, main;
+
+build/build/libver:
+    libver.c
+, exec, dbg.libver;
+    
+dbg:
+    dbg.libver
+, cmd;
+
+lib:
+    lib.lib
+    lib.main
+, cmd;
+
+
+all:
+    main
+    lib
+    dbg
+, cmd;
